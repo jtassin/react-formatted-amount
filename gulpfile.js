@@ -1,5 +1,5 @@
-var gulp = require('gulp');
-var initGulpTasks = require('react-component-gulp-tasks');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
 
 /**
  * Tasks are added by the react-component-gulp-tasks package
@@ -39,4 +39,8 @@ var taskConfig = {
 
 };
 
-initGulpTasks(gulp, taskConfig);
+gulp.task('dev', () => {
+	return gulp.src('example/src')
+		.pipe(babel())
+});
+
