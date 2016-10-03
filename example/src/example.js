@@ -1,44 +1,17 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-import ReactFormattedAmount from '../../src/ReactFormattedAmount';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import githubLight from './github-light.css';
 import normalize from './normalize.css';
 import stylesheet from './stylesheet.css';
-import Playground  from 'component-playground';
 
-var Example1 = React.createClass({ 
-	render () {
-		return (
-			<div style={{backgroundColor: 'white'}}>
-				<Playground codeText={"<ReactFormattedAmount amount={1337} currency={'$'}/>"} scope={{React: React, ReactFormattedAmount: ReactFormattedAmount}}/>
-			</div>
-		);
-	}
-});
+import Example1 from './example1';
 
 ReactDOM.render(<Example1 />, document.getElementById('example1'));
 
-
-var Example2 = React.createClass({
-	render () {
-		return (
-			<div style={{backgroundColor: 'white'}}>
-				<Playground codeText={"<ReactFormattedAmount amount={-1337} currency={'£'}/>"} scope={{React: React, ReactFormattedAmount: ReactFormattedAmount}}/>
-			</div>
-		);
-	}
-});
+import Example2 from './example2';
 
 ReactDOM.render(<Example2 />, document.getElementById('example2'));
 
-var Example3 = React.createClass({
-	render () {
-		return (
-			<div style={{backgroundColor: 'white'}}>
-				<Playground codeText={"<ReactFormattedAmount amount={1337003658} currency={'€'}/>"} scope={{React: React, ReactFormattedAmount: ReactFormattedAmount}}/>
-			</div>
-		);
-	}
-});
+import Example3 from './example3';
 
 ReactDOM.render(<Example3 />, document.getElementById('example3'));
