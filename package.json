@@ -28,6 +28,7 @@
     "enzyme": "^2.4.1",
     "eslint": "^1.6.0",
     "eslint-plugin-react": "^3.5.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
     "html-webpack-plugin": "^2.22.0",
@@ -36,6 +37,7 @@
     "react": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-hot-loader": "^3.0.0-beta.5",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
   },
@@ -46,14 +48,13 @@
     "react": "global:React"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack",
-    "examples": "gulp dev:server",
-    "lint": "eslint ./; true",
+    "build": "webpack -p --config webpack.dist.config.js",
+    "build-ghpages": "webpack -p --config webpack.example.config.js",
+    "lint": "eslint ./src",
     "publish:site": "NODE_ENV=production gulp publish:examples",
-    "release": "NODE_ENV=production gulp release",
-    "start": "webpack-dev-server -d --inline --hot",
-    "test": "mocha \"src/**/*.test.js\" --compilers js:babel-register",
-    "watch": "gulp watch:lib"
+    "release": "npm run build && npm run build-ghpages",
+    "start": "node server.js",
+    "test": "mocha \"src/**/*.test.js\" --compilers js:babel-register"
   },
   "keywords": [
     "react",
