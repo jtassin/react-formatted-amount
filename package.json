@@ -46,7 +46,7 @@
     "react": "global:React"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "examples": "gulp dev:server",
     "lint": "eslint ./; true",
     "publish:site": "NODE_ENV=production gulp publish:examples",

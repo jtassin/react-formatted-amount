@@ -1,9 +1,9 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: "./example/src/example.js",
+	entry: {example: "./example/src/example.js"},
 	output: {
-		path: __dirname,
+		path: 'dist/example',
 		filename: "bundle.js"
 	},
 	plugins: [new HtmlWebpackPlugin({template: 'example/src/index.html'})],
