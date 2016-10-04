@@ -4,7 +4,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const DEBUG = !process.argv.includes('--release');
-console.log(DEBUG);
 
 const entries = ['./examples/src/example'];
 if (DEBUG) {
