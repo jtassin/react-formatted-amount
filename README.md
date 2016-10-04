@@ -1,4 +1,6 @@
 # react-formatted-amount
+[![npm version](https://badge.fury.io/js/react-formatted-amount.svg)](https://badge.fury.io/js/react-formatted-amount) 
+[![Build Status](https://travis-ci.org/jtassin/react-formatted-amount.svg?branch=master)](https://travis-ci.org/jtassin/react-formatted-amount)
 
 React component for displaying formatted amount with currency
 
