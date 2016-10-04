@@ -2,7 +2,7 @@
   "name": "react-formatted-amount",
   "version": "1.0.3",
   "description": "react-formatted-amount",
-  "main": "dist/ReactFormattedAmount.min.js",
+  "main": "lib/ReactFormattedAmount.js",
   "author": "Julien TASSIN",
   "homepage": "https://github.com/jtassin/react-formatted-amount",
   "repository": {
@@ -53,7 +53,7 @@
   },
   "scripts": {
     "coverage": "nyc npm test && nyc report --require babel-core/register --require babel-polyfill mocha \"src/**/*.test.js\" --reporter=text-lcov > coverage.lcov  && codecov",
-    "build": "webpack -p --config webpack.dist.config.js",
+    "build": "webpack -p --config webpack.dist.config.js && babel src --out-dir lib --ignore spec.js,test.js",
     "build:ghpages": "webpack -p --config webpack.example.config.js --release",
     "lint": "eslint ./src",
     "bump:patch": "npm test && npm version patch && npm run publish:site && npm run publish:demo",
