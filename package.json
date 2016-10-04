@@ -54,7 +54,7 @@
   "scripts": {
     "coverage": "nyc npm test && nyc report --require babel-core/register --require babel-polyfill mocha \"src/**/*.test.js\" --reporter=text-lcov > coverage.lcov  && codecov",
     "build": "webpack -p --config webpack.dist.config.js",
-    "build:ghpages": "webpack -p --config webpack.example.config.js",
+    "build:ghpages": "webpack -p --config webpack.example.config.js --release",
     "lint": "eslint ./src",
     "bump:patch": "npm test && npm version patch && npm run publish:site && npm run publish:demo",
     "bump:minor": "npm test && npm version minor && npm run publish:site && npm run publish:demo",
