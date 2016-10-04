@@ -1,6 +1,6 @@
 # react-formatted-amount
 
-__COMPONENT DESCRIPTION GOES HERE__
+React component for displaying formatted amount with currency
 
 
 ## Demo & Examples
