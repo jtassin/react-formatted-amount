@@ -57,7 +57,7 @@
     "bump:minor": "npm test && npm version minor && npm run publish:site && npm run publish:demo",
     "bump:major": "npm test && npm version major && npm run publish:site && npm run publish:demo",
     "publish:site": "npm run build && npm publish && git push && git push --tags",
-    "publish:demo": "npm run build:ghpages && gh-pages -d dist/example",
+    "publish:demo": "npm run build:ghpages && gh-pages -d dist/examples",
     "start": "node server.js",
     "test": "mocha \"src/**/*.test.js\" --compilers js:babel-register"
   },
