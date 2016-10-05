@@ -37,7 +37,7 @@ npm install react-formatted-amount --save
 One installed, just require and use the component:
 ```javascript
 import React from `react`;
-import FormattedAmount from 'formatted-amount';
+import FormattedAmount from 'react-formatted-amount';
 
 React.render(<FormattedAmount amount={1337} currency={'€'} />, document.querySelector('#main'));
 ```
