@@ -1,6 +1,6 @@
 {
   "name": "react-formatted-amount",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "react-formatted-amount",
   "main": "lib/ReactFormattedAmount.js",
   "author": "Julien TASSIN",
