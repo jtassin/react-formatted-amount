@@ -12,9 +12,7 @@
   "bugs": {
     "url": "https://github.com/jtassin/react-formatted-amount/issues"
   },
-  "dependencies": {
-    "classnames": "^2.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.16.0",
     "babel-eslint": "^6.1.2",
@@ -30,17 +28,17 @@
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.12.0",
-    "eslint-plugin-jsx-a11y": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^5.2.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.22.0",
-    "mocha": "^3.1.0",
-    "nyc": "^8.3.0",
+    "mocha": "^3.2.0",
+    "nyc": "^8.4.0",
     "raw-loader": "^0.5.1",
-    "react": "^15.3.2",
-    "react-addons-test-utils": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.5",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
