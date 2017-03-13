@@ -65,6 +65,36 @@ describe('I18nReactFormattedAmount', () => {
     });
   });
 
+  it('Pass the format directly to the child if the prop is passed', () => {
+    const format = "%n in %u";
+    const wrapper = shallow(
+      <ReactFormattedAmount format={format} amount={200} currency="€" />
+    );
+    const result = shallow(
+      <TargetReactFormattedAmount amount={200} currency="€" format={format} />
+    ).html();
+    expect(wrapper.html()).to.equal(result);
+  });
+
+  it('Pass the separator directly to the child if the prop is passed', () => {
+    const separator = "SEPARATOR";
+    const wrapper = shallow(
+      <ReactFormattedAmount separator={separator} amount={200} currency="€" />
+    );
+    const result = shallow(
+      <TargetReactFormattedAmount amount={200} currency="€" separator={separator} />
+    ).html();
+    expect(wrapper.html()).to.equal(result);
+  });
+  
+  it('Works (with "en" as default lang) on server side (no window)', () => {
+    delete global.window;
+    const wrapper = shallow(
+      <ReactFormattedAmount amount={200} currency="€" />
+    );
+    expect(wrapper.html()).to.equal(enTarget());
+  });
+
   it('uses lang parameter if the lang is forced', () => {
     global.window = {
       navigator: {
