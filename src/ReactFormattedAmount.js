@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const FormattedAmount = function(props) {
+const FormattedAmount = function render(props) {
   const { amount, currency } = props;
   let result = '';
   const styles = {
@@ -19,8 +19,8 @@ const FormattedAmount = function(props) {
   } else {
     result = <span>0.00 {currency}</span>;
   }
-  return result; 
-}
+  return result;
+};
 
 FormattedAmount.propTypes = {
   amount: PropTypes.number.isRequired,

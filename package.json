@@ -56,6 +56,7 @@
     "build": "webpack -p --config webpack.dist.config.js && babel src --out-dir lib --ignore spec.js,test.js",
     "build:ghpages": "webpack -p --config webpack.example.config.js --release",
     "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
     "bump:patch": "npm test && npm version patch && npm run publish:site && npm run publish:demo",
     "bump:minor": "npm test && npm version minor && npm run publish:site && npm run publish:demo",
     "bump:major": "npm test && npm version major && npm run publish:site && npm run publish:demo",
