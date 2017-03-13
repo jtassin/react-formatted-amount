@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import githubLight from './github-light.css';
-import normalize from './normalize.css';
-import stylesheet from './stylesheet.css';
+import './github-light.css';
+import './normalize.css';
+import './stylesheet.css';
 
 import Example1 from './example1';
 
