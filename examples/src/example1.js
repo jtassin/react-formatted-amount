@@ -1,5 +1,5 @@
 import React from 'react';
-import Playground  from 'component-playground';
+import Playground from 'component-playground';
 import ReactFormattedAmount from '../../src/ReactFormattedAmount';
 
 export default function () {
