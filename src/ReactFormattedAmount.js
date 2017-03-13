@@ -9,10 +9,11 @@ const FormattedAmount = function render(props) {
     },
   };
   const decimalAmount = Math.abs(amount / 100);
-  const formattedAmount = decimalAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1 ').replace('.', separator);
-  
+  let formattedAmount = decimalAmount.toFixed(2);
+  formattedAmount = formattedAmount.replace(/(\d)(?=(\d{3})+\.)/g, '$1 ').replace('.', separator);
+
   const amountAndCurrency = format.replace('%u', currency).replace('%n', formattedAmount);
-  
+
   if (decimalAmount) {
     if (amount > 0) {
       result = <span>{amountAndCurrency}</span>;
@@ -35,6 +36,6 @@ FormattedAmount.propTypes = {
 FormattedAmount.defaultProps = {
   format: '%n %u',
   separator: '.',
-}
+};
 
 export default FormattedAmount;
