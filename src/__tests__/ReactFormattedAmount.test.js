@@ -5,6 +5,20 @@ import ReactFormattedAmount from '../ReactFormattedAmount';
 
 /* eslint-disable no-undef */
 describe('ReactFormattedAmount', () => {
+  it('take into account the format.format prop', () => {
+    const wrapper = shallow(
+      <ReactFormattedAmount format="%n =-= %u" amount={200} currency="€" />
+    );
+    expect(wrapper.html()).to.equal('<span>2.00 =-= €</span>');
+  });
+
+  it('take into account the format.separator prop', () => {
+    const wrapper = shallow(
+      <ReactFormattedAmount separator="SEPARATOR" amount={200} currency="€" />
+    );
+    expect(wrapper.html()).to.equal('<span>2SEPARATOR00 €</span>');
+  });
+
   it('0 pad amount and add the correct currency symbol', () => {
     let wrapper = shallow(
       <ReactFormattedAmount amount={200} currency="€" />

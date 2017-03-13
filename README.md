@@ -31,10 +31,18 @@ You can also use the standalone build by including `dist/ReactFormattedAmount.mi
 npm install react-formatted-amount --save
 ```
 
+## Internationalization
+
+There is currently two languages supported english and french.
+By default, the component will decide the language to use according to the browser language.
+You can also force it to use a specific lang with 
+```javascript
+<FormattedAmount lang="en" amount={1337} currency={'€'} />
+```
 
 ## Usage
 
-One installed, just require and use the component:
+Once installed, just require and use the component:
 ```javascript
 import React from `react`;
 import FormattedAmount from 'react-formatted-amount';
@@ -45,13 +53,15 @@ React.render(<FormattedAmount amount={1337} currency={'€'} />, document.queryS
 
 ### Properties
 
-* amount : The aount in cents to represent
 * currency : The currency to display
 
-### Notes
-
-__ADDITIONAL USAGE NOTES__
-
+| Props        | Type           | Default  | Description |
+| ------------- |-------------| -----| -------- |
+| amount (required)       | String or Number      | null  | The amount in cents to represent |
+| currency (required)       | String      | null  | The currency to display |
+| lang| String      | null  | The lang to use for formatting. If null, the browser lang is used. |
+| format | String      | null  | The format to use for formatting the result. Example : '%n %u'. %u stands for the currency, %n stands for the number. If null, the format of the lang is used |
+| separator | String      | null  | The units, decimales separator. If null the lang separator is used.|
 
 ## Development (`src`, `lib` and the build process)
 

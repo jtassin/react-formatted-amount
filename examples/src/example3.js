@@ -1,6 +1,6 @@
 import React from 'react';
 import Playground from 'component-playground';
-import ReactFormattedAmount from '../../src/ReactFormattedAmount';
+import ReactFormattedAmount from '../../src/I18nReactFormattedAmount';
 
 export default function () {
   return (
