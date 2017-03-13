@@ -1,12 +1,17 @@
 import React, { PropTypes } from 'react';
 import ReactFormattedAmount from './ReactFormattedAmount';
 
-const I18nReactFormattedAmount = function render({ format, lang, ...rest }) {
+const I18nReactFormattedAmount = function render({ format, lang, separator, ...rest }) {
   const childProps = Object.assign({}, rest);
   if( !format) {
-    childProps.format = I18nReactFormattedAmount.getFormat(lang);
+    childProps.format = I18nReactFormattedAmount.getFormat(lang).format;
   } else {
     childProps.format = format;
+  }
+  if( !separator) {
+    childProps.separator = I18nReactFormattedAmount.getFormat(lang).separator;
+  } else {
+    childProps.separator = separator;
   }
   return <ReactFormattedAmount {...childProps} />
 }
@@ -19,8 +24,8 @@ I18nReactFormattedAmount.propTypes = {
 I18nReactFormattedAmount.DEFAULT_LANGUAGE_NODE = 'en-US';
 
 I18nReactFormattedAmount.formatsPerLang = {
-  fr: { separator: '.', delimiter: ' ', format: '%n %u'},
-  en: { separator: '.', delimiter: ',', format: '%u %n'},
+  fr: { separator: '.', format: '%n %u'},
+  en: { separator: '.', format: '%u %n'},
 }
 
 I18nReactFormattedAmount.getFormat = (lang) => {

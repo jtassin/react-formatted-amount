@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const FormattedAmount = function render(props) {
-  const { amount, currency, format } = props;
+  const { amount, currency, format, separator } = props;
   let result = '';
   const styles = {
     negative: {
@@ -9,9 +9,9 @@ const FormattedAmount = function render(props) {
     },
   };
   const decimalAmount = Math.abs(amount / 100);
-  const formattedAmount = decimalAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1 ');
+  const formattedAmount = decimalAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1 ').replace('.', separator);
   
-  const amountAndCurrency = format.format.replace('%u', currency).replace('%n', formattedAmount);
+  const amountAndCurrency = format.replace('%u', currency).replace('%n', formattedAmount);
   
   if (decimalAmount) {
     if (amount > 0) {
@@ -28,21 +28,13 @@ const FormattedAmount = function render(props) {
 FormattedAmount.propTypes = {
   amount: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
-  format: FormattedAmount.formatPropType,
+  format: PropTypes.string,
+  separator: PropTypes.string,
 };
 
-FormattedAmount.formatPropType = PropTypes.shape({
-  format: PropTypes.string.isRequired,
-  delimiter: PropTypes.string.isRequired,
-  separator: PropTypes.string.isRequired,
-})
-
 FormattedAmount.defaultProps = {
-  format: {
-    format: '%n %u',
-    delimiter: ' ',
-    separator: '.',
-  },
+  format: '%n %u',
+  separator: '.',
 }
 
 export default FormattedAmount;

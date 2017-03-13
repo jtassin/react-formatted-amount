@@ -8,9 +8,16 @@ describe('ReactFormattedAmount', () => {
   
   it('take into account the format.format prop', () => {
     let wrapper = shallow(
-      <ReactFormattedAmount format={{ format: '%n =-= %u' }} amount={200} currency="€" />
+      <ReactFormattedAmount format='%n =-= %u' amount={200} currency="€" />
     );
     expect(wrapper.html()).to.equal('<span>2.00 =-= €</span>');
+  });
+
+  it('take into account the format.separator prop', () => {
+    let wrapper = shallow(
+      <ReactFormattedAmount separator='SEPARATOR' amount={200} currency="€" />
+    );
+    expect(wrapper.html()).to.equal('<span>2SEPARATOR00 €</span>');
   });
 
   it('0 pad amount and add the correct currency symbol', () => {

@@ -15,19 +15,19 @@ describe('I18nReactFormattedAmount', () => {
     };
   });
   
-  const FR_FORMAT = { separator: '.', delimiter: ' ', format: '%n %u'};
+  const FR_FORMAT = { separator: '.', format: '%n %u'};
 
-  const EN_FORMAT = { separator: '.', delimiter: ' ', format: '%u %n'};
+  const EN_FORMAT = { separator: '.', format: '%u %n'};
   
   const frTarget = ()=> {
     return shallow(
-      <TargetReactFormattedAmount amount={200} currency="€" format={FR_FORMAT}/>
+      <TargetReactFormattedAmount amount={200} currency="€" {...FR_FORMAT}/>
     ).html();
   }
 
   const enTarget = ()=> {
     return shallow(
-      <TargetReactFormattedAmount amount={200} currency="€" format={EN_FORMAT}/>
+      <TargetReactFormattedAmount amount={200} currency="€" {...EN_FORMAT}/>
     ).html();
   }
   
