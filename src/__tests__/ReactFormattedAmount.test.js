@@ -5,6 +5,14 @@ import ReactFormattedAmount from '../ReactFormattedAmount';
 
 /* eslint-disable no-undef */
 describe('ReactFormattedAmount', () => {
+  
+  it('take into account the format.format prop', () => {
+    let wrapper = shallow(
+      <ReactFormattedAmount format={{ format: '%n =-= %u' }} amount={200} currency="€" />
+    );
+    expect(wrapper.html()).to.equal('<span>2.00 =-= €</span>');
+  });
+
   it('0 pad amount and add the correct currency symbol', () => {
     let wrapper = shallow(
       <ReactFormattedAmount amount={200} currency="€" />
