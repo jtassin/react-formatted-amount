@@ -166,21 +166,21 @@ describe('I18nReactFormattedAmount', () => {
   });
 
   describe('pass custom props', () => {
-    const targetWithClass = (lang) => (shallow(
-      <TargetReactFormattedAmount amount={200} {...FORMATS[lang]} className="foo bar" />
+    const targetWithClass = (lang, amount) => (shallow(
+      <TargetReactFormattedAmount amount={amount} {...FORMATS[lang]} className="foo bar" />
     ).html());
 
     it('with positive amount', () => {
       const wrapper = shallow(
         <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
       );
-      expect(wrapper.html()).to.equal(targetWithClass('ru'));
+      expect(wrapper.html()).to.equal(targetWithClass('ru', 200));
     });
     it('with negative amount', () => {
       const wrapper = shallow(
-        <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
+        <ReactFormattedAmount amount={-200} lang="ru" currencyCode="rub" className="foo bar" />
       );
-      expect(wrapper.html()).to.equal(targetWithClass('ru'));
+      expect(wrapper.html()).to.equal(targetWithClass('ru', -200));
     });
   });
 });
