@@ -19,7 +19,7 @@ FormattedAmount.propTypes = {
   currency: PropTypes.string.isRequired,
   format: PropTypes.string.isRequired,
   separator: PropTypes.string,
-  NegWrap: PropTypes.function,
+  NegWrap: PropTypes.func,
 };
 
 FormattedAmount.defaultProps = {
