@@ -35,28 +35,28 @@ describe('I18nReactFormattedAmount', () => {
         },
       };
       let wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="$" />
+        <ReactFormattedAmount amount={200} currencyCode="usd" />
       );
       expect(wrapper.html()).to.equal(target('en'));
       delete global.window.navigator.languages;
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="eur" />
       );
       expect(wrapper.html()).to.equal(target('fr'));
       global.window.navigator.language = 'en-US';
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="$" />
+        <ReactFormattedAmount amount={200} currencyCode="usd" />
       );
       expect(wrapper.html()).to.equal(target('en'));
 
       delete global.window.navigator.language;
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="eur" />
       );
       expect(wrapper.html()).to.equal(target('fr'));
       global.window.navigator.userLanguage = 'en-US';
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="$" />
+        <ReactFormattedAmount amount={200} currencyCode="usd" />
       );
       expect(wrapper.html()).to.equal(target('en'));
     });
@@ -76,7 +76,7 @@ describe('I18nReactFormattedAmount', () => {
   it('Pass the separator directly to the child if the prop is passed', () => {
     const separator = "SEPARATOR";
     const wrapper = shallow(
-      <ReactFormattedAmount separator={separator} amount={200} currency="€" />
+      <ReactFormattedAmount separator={separator} amount={200} currencyCode="eur" />
     );
     const result = shallow(
       <TargetReactFormattedAmount amount={200} currency="€" separator={separator} />
@@ -87,7 +87,7 @@ describe('I18nReactFormattedAmount', () => {
   it('Works (with "en" as default lang) on server side (no window)', () => {
     delete global.window;
     const wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="$" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
     expect(wrapper.html()).to.equal(target('en'));
   });
@@ -99,7 +99,7 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     const wrapper = shallow(
-      <ReactFormattedAmount lang="fr" amount={200} currency="€" />
+      <ReactFormattedAmount lang="fr" amount={200} currencyCode="eur" />
     );
     expect(wrapper.html()).to.equal(target('fr'));
   });
@@ -111,7 +111,7 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     let wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="$" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
     expect(wrapper.html()).to.equal(target('en'));
     global.window = {
@@ -120,7 +120,7 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="eur" />
     );
     expect(wrapper.html()).to.equal(target('fr'));
   });
@@ -128,7 +128,7 @@ describe('I18nReactFormattedAmount', () => {
   it('renders the result in fr-FR format if the language can not be determined', () => {
     global.window = {};
     const wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="$" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
     expect(wrapper.html()).to.equal(target('en'));
   });
@@ -140,7 +140,7 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     let wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="$" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
     expect(wrapper.html()).to.equal(target('en'));
     global.window = {
@@ -149,14 +149,14 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="eur" />
     );
     expect(wrapper.html()).to.equal(target('fr'));
   });
 
   it('display the amount in custom locale', () => {
     const wrapper = shallow(
-      <ReactFormattedAmount amount={200} lang="ru" />
+      <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" />
     );
     expect(wrapper.html()).to.equal(target('ru'));
   });
@@ -168,13 +168,13 @@ describe('I18nReactFormattedAmount', () => {
 
     it('with positive amount', () => {
       const wrapper = shallow(
-        <ReactFormattedAmount amount={200} lang="ru" className="foo bar" />
+        <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
       );
       expect(wrapper.html()).to.equal(target('ru'));
     });
     it('with negative amount', () => {
       const wrapper = shallow(
-        <ReactFormattedAmount amount={200} lang="ru" className="foo bar" />
+        <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
       );
       expect(wrapper.html()).to.equal(target('ru'));
     });
