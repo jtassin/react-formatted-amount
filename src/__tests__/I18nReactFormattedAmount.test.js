@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ReactFormattedAmount from '../I18nReactFormattedAmount';
@@ -14,16 +15,16 @@ describe('I18nReactFormattedAmount', () => {
     };
   });
 
-  const FR_FORMAT = { separator: '.', format: '%n %u' };
+  const RuNegWrap = ({ children, ...props }) => <span {...props}>{`–${children}`}</span>;
+  RuNegWrap.propTypes = { children: PropTypes.string };
 
-  const EN_FORMAT = { separator: '.', format: '%u %n' };
-
-  const frTarget = () => (shallow(
-    <TargetReactFormattedAmount amount={200} currency="€" {...FR_FORMAT} />
-  ).html());
-
-  const enTarget = () => (shallow(
-    <TargetReactFormattedAmount amount={200} currency="€" {...EN_FORMAT} />
+  const FORMATS = {
+    fr: { separator: '.', format: '%n %u', currency: '€' },
+    en: { separator: '.', format: '%u %n', currency: '$' },
+    ru: { separator: '.', format: '%n%u', currency: '₽', NegWrap: RuNegWrap },
+  };
+  const target = (lang) => (shallow(
+    <TargetReactFormattedAmount amount={200} {...FORMATS[lang]} />
   ).html());
 
   describe('language detection', () => {
@@ -38,35 +39,35 @@ describe('I18nReactFormattedAmount', () => {
         },
       };
       let wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="usd" />
       );
-      expect(wrapper.html()).to.equal(enTarget());
+      expect(wrapper.html()).to.equal(target('en'));
       delete global.window.navigator.languages;
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="eur" />
       );
-      expect(wrapper.html()).to.equal(frTarget());
+      expect(wrapper.html()).to.equal(target('fr'));
       global.window.navigator.language = 'en-US';
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="usd" />
       );
-      expect(wrapper.html()).to.equal(enTarget());
+      expect(wrapper.html()).to.equal(target('en'));
 
       delete global.window.navigator.language;
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="eur" />
       );
-      expect(wrapper.html()).to.equal(frTarget());
+      expect(wrapper.html()).to.equal(target('fr'));
       global.window.navigator.userLanguage = 'en-US';
       wrapper = shallow(
-        <ReactFormattedAmount amount={200} currency="€" />
+        <ReactFormattedAmount amount={200} currencyCode="usd" />
       );
-      expect(wrapper.html()).to.equal(enTarget());
+      expect(wrapper.html()).to.equal(target('en'));
     });
   });
 
   it('Pass the format directly to the child if the prop is passed', () => {
-    const format = "%n in %u";
+    const format = '%n in %u';
     const wrapper = shallow(
       <ReactFormattedAmount format={format} amount={200} currency="€" />
     );
@@ -77,22 +78,22 @@ describe('I18nReactFormattedAmount', () => {
   });
 
   it('Pass the separator directly to the child if the prop is passed', () => {
-    const separator = "SEPARATOR";
+    const separator = 'SEPARATOR';
     const wrapper = shallow(
-      <ReactFormattedAmount separator={separator} amount={200} currency="€" />
+      <ReactFormattedAmount separator={separator} amount={200} currencyCode="eur" />
     );
     const result = shallow(
       <TargetReactFormattedAmount amount={200} currency="€" separator={separator} />
     ).html();
     expect(wrapper.html()).to.equal(result);
   });
-  
+
   it('Works (with "en" as default lang) on server side (no window)', () => {
     delete global.window;
     const wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
-    expect(wrapper.html()).to.equal(enTarget());
+    expect(wrapper.html()).to.equal(target('en'));
   });
 
   it('uses lang parameter if the lang is forced', () => {
@@ -102,9 +103,9 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     const wrapper = shallow(
-      <ReactFormattedAmount lang="fr" amount={200} currency="€" />
+      <ReactFormattedAmount lang="fr" amount={200} currencyCode="eur" />
     );
-    expect(wrapper.html()).to.equal(frTarget());
+    expect(wrapper.html()).to.equal(target('fr'));
   });
 
   it('adapt to brower language if format:auto is true', () => {
@@ -114,26 +115,26 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     let wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
-    expect(wrapper.html()).to.equal(enTarget());
+    expect(wrapper.html()).to.equal(target('en'));
     global.window = {
       navigator: {
         language: 'fr',
       },
     };
     wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="eur" />
     );
-    expect(wrapper.html()).to.equal(frTarget());
+    expect(wrapper.html()).to.equal(target('fr'));
   });
 
   it('renders the result in fr-FR format if the language can not be determined', () => {
     global.window = {};
     const wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
-    expect(wrapper.html()).to.equal(enTarget());
+    expect(wrapper.html()).to.equal(target('en'));
   });
 
   it('has auto formatting enabled by default', () => {
@@ -143,18 +144,43 @@ describe('I18nReactFormattedAmount', () => {
       },
     };
     let wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="usd" />
     );
-    expect(wrapper.html()).to.equal(enTarget());
+    expect(wrapper.html()).to.equal(target('en'));
     global.window = {
       navigator: {
         language: 'fr',
       },
     };
     wrapper = shallow(
-      <ReactFormattedAmount amount={200} currency="€" />
+      <ReactFormattedAmount amount={200} currencyCode="eur" />
     );
-    expect(wrapper.html()).to.equal(frTarget());
+    expect(wrapper.html()).to.equal(target('fr'));
+  });
+
+  it('display the amount in custom locale', () => {
+    const wrapper = shallow(
+      <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" />
+    );
+    expect(wrapper.html()).to.equal(target('ru'));
+  });
+
+  describe('pass custom props', () => {
+    const targetWithClass = (lang, amount) => (shallow(
+      <TargetReactFormattedAmount amount={amount} {...FORMATS[lang]} className="foo bar" />
+    ).html());
+
+    it('with positive amount', () => {
+      const wrapper = shallow(
+        <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
+      );
+      expect(wrapper.html()).to.equal(targetWithClass('ru', 200));
+    });
+    it('with negative amount', () => {
+      const wrapper = shallow(
+        <ReactFormattedAmount amount={-200} lang="ru" currencyCode="rub" className="foo bar" />
+      );
+      expect(wrapper.html()).to.equal(targetWithClass('ru', -200));
+    });
   });
 });
-

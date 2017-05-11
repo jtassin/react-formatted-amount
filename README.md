@@ -33,12 +33,18 @@ npm install react-formatted-amount --save
 
 ## Internationalization
 
-There is currently two languages supported english and french.
+The supported languages are :
+* english
+* french
+* russian
+
 By default, the component will decide the language to use according to the browser language.
 You can also force it to use a specific lang with 
 ```javascript
 <FormattedAmount lang="en" amount={1337} currency={'€'} />
 ```
+
+The default language will be english. The language is used to determine the separator.
 
 ## Usage
 
@@ -53,15 +59,15 @@ React.render(<FormattedAmount amount={1337} currency={'€'} />, document.queryS
 
 ### Properties
 
-* currency : The currency to display
-
 | Props        | Type           | Default  | Description |
 | ------------- |-------------| -----| -------- |
 | amount (required)       | String or Number      | null  | The amount in cents to represent |
 | currency (required)       | String      | null  | The currency to display |
+| currencyCode        | String      | null  | The currencyCode to use. The supported currencyCode are usd, eur, rub. It will determine a format and a currency if set. |
 | lang| String      | null  | The lang to use for formatting. If null, the browser lang is used. |
 | format | String      | null  | The format to use for formatting the result. Example : '%n %u'. %u stands for the currency, %n stands for the number. If null, the format of the lang is used |
 | separator | String      | null  | The units, decimales separator. If null the lang separator is used.|
+| NegWrap | function | us behaviour -50 -> (50) | A component or function that will format negative amounts. |
 
 ## Development (`src`, `lib` and the build process)
 

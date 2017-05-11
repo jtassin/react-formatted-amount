@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ReactFormattedAmount from '../ReactFormattedAmount';
@@ -73,5 +74,29 @@ describe('ReactFormattedAmount', () => {
     );
     expect(wrapper.html()).to.equal('<span>0.00 USD</span>');
   });
-});
 
+  const RuNegWrap = ({ children, ...props }) => <span {...props}>{`–${children}`}</span>;
+  RuNegWrap.propTypes = { children: PropTypes.string };
+
+  it('display the amount in custom locale', () => {
+    const wrapper = shallow(
+      <ReactFormattedAmount amount={-200} currency="₽" format="%n%u" NegWrap={RuNegWrap} />
+    );
+    expect(wrapper.html()).to.equal('<span>–2.00₽</span>');
+  });
+
+  describe('pass custom props', () => {
+    it('with positive amount', () => {
+      const wrapper = shallow(
+        <ReactFormattedAmount amount={100500} currency="₽" format="%n%u" NegWrap={RuNegWrap} className="foo bar" />
+      );
+      expect(wrapper.html()).to.equal('<span class="foo bar">1 005.00₽</span>');
+    });
+    it('with negative amount', () => {
+      const wrapper = shallow(
+        <ReactFormattedAmount amount={-42} currency="₽" format="%n%u" NegWrap={RuNegWrap} className="foo bar" />
+      );
+      expect(wrapper.html()).to.equal('<span class="foo bar">–0.42₽</span>');
+    });
+  });
+});
