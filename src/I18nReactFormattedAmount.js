@@ -26,6 +26,7 @@ I18nReactFormattedAmount.DEFAULT_LANGUAGE_NODE = 'en-US';
 I18nReactFormattedAmount.formatsPerLang = {
   fr: { separator: '.', format: '%n %u'},
   en: { separator: '.', format: '%u %n'},
+  ru: { separator: '.', format: '%n%u'},
 }
 
 I18nReactFormattedAmount.getFormat = (lang) => {
