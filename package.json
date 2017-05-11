@@ -16,7 +16,6 @@
     "prop-types": "^15.5.9"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.16.0",
     "babel-eslint": "^6.1.2",
