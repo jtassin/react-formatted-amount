@@ -11,19 +11,13 @@ const FormattedAmount = function render({ amount, currency, format, separator, N
   return amount >= 0 ? <span {...props}>{amountAndCurrency}</span> : <NegWrap {...props}>{amountAndCurrency}</NegWrap>;
 };
 
-const styles = {
-  negative: {
-    color: 'red',
-  },
-};
-
-const DefaultNegWrap = ({ children, ...props }) => <span style={styles.negative} {...props}>({children})</span>;
+const DefaultNegWrap = ({ children, ...props }) => <span style={{ color: 'red' }} {...props}>({children})</span>;
 DefaultNegWrap.propTypes = { children: PropTypes.string };
 
 FormattedAmount.propTypes = {
   amount: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
-  format: PropTypes.string,
+  format: PropTypes.string.isRequired,
   separator: PropTypes.string,
   NegWrap: PropTypes.function,
 };
