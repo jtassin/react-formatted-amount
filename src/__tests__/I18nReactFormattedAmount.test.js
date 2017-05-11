@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ReactFormattedAmount from '../I18nReactFormattedAmount';
@@ -14,11 +15,14 @@ describe('I18nReactFormattedAmount', () => {
     };
   });
 
+  const RuNegWrap = ({ children, ...props }) => <span {...props}>{`–${children}`}</span>;
+  RuNegWrap.propTypes = { children: PropTypes.string };
+
   const FORMATS = {
     fr: { separator: '.', format: '%n %u', currency: '€' },
     en: { separator: '.', format: '%u %n', currency: '$' },
-    ru: { separator: '.', format: '%n%u', currency: '₽', NegWrap: ({children, ...props}) => <span {...props}>{'–' + children}</span> },
-  }
+    ru: { separator: '.', format: '%n%u', currency: '₽', NegWrap: RuNegWrap },
+  };
   const target = (lang) => (shallow(
     <TargetReactFormattedAmount amount={200} {...FORMATS[lang]} />
   ).html());
@@ -63,7 +67,7 @@ describe('I18nReactFormattedAmount', () => {
   });
 
   it('Pass the format directly to the child if the prop is passed', () => {
-    const format = "%n in %u";
+    const format = '%n in %u';
     const wrapper = shallow(
       <ReactFormattedAmount format={format} amount={200} currency="€" />
     );
@@ -74,7 +78,7 @@ describe('I18nReactFormattedAmount', () => {
   });
 
   it('Pass the separator directly to the child if the prop is passed', () => {
-    const separator = "SEPARATOR";
+    const separator = 'SEPARATOR';
     const wrapper = shallow(
       <ReactFormattedAmount separator={separator} amount={200} currencyCode="eur" />
     );
@@ -162,7 +166,7 @@ describe('I18nReactFormattedAmount', () => {
   });
 
   describe('pass custom props', () => {
-    const target = (lang) => (shallow(
+    const targetWithClass = (lang) => (shallow(
       <TargetReactFormattedAmount amount={200} {...FORMATS[lang]} className="foo bar" />
     ).html());
 
@@ -170,13 +174,13 @@ describe('I18nReactFormattedAmount', () => {
       const wrapper = shallow(
         <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
       );
-      expect(wrapper.html()).to.equal(target('ru'));
+      expect(wrapper.html()).to.equal(targetWithClass('ru'));
     });
     it('with negative amount', () => {
       const wrapper = shallow(
         <ReactFormattedAmount amount={200} lang="ru" currencyCode="rub" className="foo bar" />
       );
-      expect(wrapper.html()).to.equal(target('ru'));
+      expect(wrapper.html()).to.equal(targetWithClass('ru'));
     });
   });
 });

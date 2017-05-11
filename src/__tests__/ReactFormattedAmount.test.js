@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ReactFormattedAmount from '../ReactFormattedAmount';
@@ -74,7 +75,8 @@ describe('ReactFormattedAmount', () => {
     expect(wrapper.html()).to.equal('<span>0.00 USD</span>');
   });
 
-  const RuNegWrap = ({children, ...props}) => <span {...props}>{'–' + children}</span>;
+  const RuNegWrap = ({ children, ...props }) => <span {...props}>{`–${children}`}</span>;
+  RuNegWrap.propTypes = { children: PropTypes.string };
 
   it('display the amount in custom locale', () => {
     const wrapper = shallow(

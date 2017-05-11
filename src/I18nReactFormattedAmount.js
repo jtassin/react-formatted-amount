@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactFormattedAmount from './ReactFormattedAmount';
 
-const I18nReactFormattedAmount = function render ({ format, lang, separator, currency, currencyCode, NegWrap, ...props }) {
-  const currencyProps = !currencyCode ? {format, currency} : {
+const I18nReactFormattedAmount = function render(props) {
+  const { format, lang, separator, currency, currencyCode, NegWrap, ...rest } = props;
+  const currencyProps = !currencyCode ? { format, currency } : {
     format: format || I18nReactFormattedAmount.formatsPerCurrencyCode[currencyCode].format,
     currency: currency || I18nReactFormattedAmount.formatsPerCurrencyCode[currencyCode].currency,
   };
 
   const childProps = {
-    ...props,
+    ...rest,
     ...currencyProps,
     separator: separator || I18nReactFormattedAmount.getFormat(lang).separator,
     NegWrap: NegWrap || I18nReactFormattedAmount.getFormat(lang).NegWrap,
   };
 
-  return <ReactFormattedAmount {...childProps} />
+  return <ReactFormattedAmount {...childProps} />;
 };
 
 I18nReactFormattedAmount.propTypes = {
@@ -25,11 +26,14 @@ I18nReactFormattedAmount.propTypes = {
 
 I18nReactFormattedAmount.DEFAULT_LANGUAGE_NODE = 'en-US';
 
+const RuNegWrap = ({ children, ...props }) => <span {...props}>{`–${children}`}</span>;
+RuNegWrap.propTypes = { children: PropTypes.string };
+
 // current user language
 I18nReactFormattedAmount.formatsPerLang = {
-  fr: { separator: '.', },
-  en: { separator: '.', },
-  ru: { separator: '.', NegWrap: ({children, ...props}) => <span {...props}>{'–' + children}</span> },
+  fr: { separator: '.' },
+  en: { separator: '.' },
+  ru: { separator: '.', NegWrap: RuNegWrap },
 };
 
 // print currency (may differ than user lang)
@@ -40,32 +44,18 @@ I18nReactFormattedAmount.formatsPerCurrencyCode = {
 };
 
 I18nReactFormattedAmount.getFormat = (lang) => {
-  let currentLanguage = lang;
-  if( !currentLanguage) {
-    currentLanguage = I18nReactFormattedAmount.currentLanguage();
-  }
-  currentLanguage = currentLanguage.split('-')[0];
-  if (currentLanguage in I18nReactFormattedAmount.formatsPerLang) {
-    return I18nReactFormattedAmount.formatsPerLang[currentLanguage];
-  }
+  const currentLanguage = (lang || I18nReactFormattedAmount.currentLanguage()).split('-')[0];
+  return I18nReactFormattedAmount.formatsPerLang[currentLanguage];
 };
 
 I18nReactFormattedAmount.currentLanguage = () => {
-  if (typeof window === 'undefined') {
-    return I18nReactFormattedAmount.DEFAULT_LANGUAGE_NODE;
-  }
-  if (!window.navigator) {
+  if (typeof window === 'undefined' || !window.navigator) {
     return I18nReactFormattedAmount.DEFAULT_LANGUAGE_NODE;
   }
   if (window.navigator.languages) {
     return window.navigator.languages[0];
   }
-  if (window.navigator.language) {
-    return window.navigator.language;
-  }
-  if (window.navigator.userLanguage) {
-    return window.navigator.userLanguage;
-  }
+  return window.navigator.language || window.navigator.userLanguage;
 };
 
 I18nReactFormattedAmount.propTypes = {
@@ -75,6 +65,7 @@ I18nReactFormattedAmount.propTypes = {
   currencyCode: PropTypes.string,
   format: PropTypes.string,
   separator: PropTypes.string,
+  NegWrap: PropTypes.function,
 };
 
 export default I18nReactFormattedAmount;

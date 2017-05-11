@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormattedAmount = function render ({ amount, currency, format, separator, NegWrap, ...props }) {
+const FormattedAmount = function render({ amount, currency, format, separator, NegWrap, ...props }) {
   const decimalAmount = Math.abs(amount / 100);
   let formattedAmount = decimalAmount.toFixed(2);
   formattedAmount = formattedAmount.replace(/(\d)(?=(\d{3})+\.)/g, '$1 ').replace('.', separator);
@@ -17,7 +17,8 @@ const styles = {
   },
 };
 
-const DefaultNegWrap = ({children, ...props}) => <span style={styles.negative} {...props}>({children})</span>;
+const DefaultNegWrap = ({ children, ...props }) => <span style={styles.negative} {...props}>({children})</span>;
+DefaultNegWrap.propTypes = { children: PropTypes.string };
 
 FormattedAmount.propTypes = {
   amount: PropTypes.number.isRequired,
