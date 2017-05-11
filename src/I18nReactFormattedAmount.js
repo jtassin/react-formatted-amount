@@ -19,11 +19,6 @@ const I18nReactFormattedAmount = function render(props) {
   return <ReactFormattedAmount {...childProps} />;
 };
 
-I18nReactFormattedAmount.propTypes = {
-  lang: PropTypes.string,
-  format: ReactFormattedAmount.formatPropType,
-};
-
 I18nReactFormattedAmount.DEFAULT_LANGUAGE_NODE = 'en-US';
 
 const RuNegWrap = ({ children, ...props }) => <span {...props}>{`–${children}`}</span>;
@@ -60,12 +55,12 @@ I18nReactFormattedAmount.currentLanguage = () => {
 
 I18nReactFormattedAmount.propTypes = {
   lang: PropTypes.string,
-  amount: PropTypes.number.isRequired,
-  currency: PropTypes.string.isRequired,
-  currencyCode: PropTypes.string,
+  amount: ReactFormattedAmount.propTypes.amount,
+  currency: PropTypes.string,
+  currencyCode: PropTypes.oneOf(Object.keys(I18nReactFormattedAmount.formatsPerCurrencyCode)),
   format: PropTypes.string,
-  separator: PropTypes.string,
-  NegWrap: PropTypes.function,
+  separator: ReactFormattedAmount.propTypes.separator,
+  NegWrap: ReactFormattedAmount.propTypes.NegWrap,
 };
 
 export default I18nReactFormattedAmount;
