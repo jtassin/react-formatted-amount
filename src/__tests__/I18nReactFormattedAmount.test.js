@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ReactFormattedAmount from '../I18nReactFormattedAmount';
 import TargetReactFormattedAmount from '../ReactFormattedAmount';
+
+configure({ adapter: new Adapter() });
 
 /* eslint-disable no-undef */
 describe('I18nReactFormattedAmount', () => {

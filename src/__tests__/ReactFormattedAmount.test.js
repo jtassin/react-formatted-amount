@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import ReactFormattedAmount from '../ReactFormattedAmount';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import ReactFormattedAmount from '../I18nReactFormattedAmount';
 
 /* eslint-disable no-undef */
 describe('ReactFormattedAmount', () => {
@@ -46,26 +48,26 @@ describe('ReactFormattedAmount', () => {
     const wrapper = shallow(
       <ReactFormattedAmount amount={-200} currency="€" />
     );
-    expect(wrapper.html()).to.equal('<span style="color:red;">(2.00 €)</span>');
+    expect(wrapper.html()).to.equal('<span style="color:red">(2.00 €)</span>');
   });
 
   it('display formatted amount greater than 1000 or 1000000', () => {
     let wrapper = shallow(
       <ReactFormattedAmount amount={-200000} currency="€" />
     );
-    expect(wrapper.html()).to.equal('<span style="color:red;">(2 000.00 €)</span>');
+    expect(wrapper.html()).to.equal('<span style="color:red">(2 000.00 €)</span>');
     wrapper = shallow(
       <ReactFormattedAmount amount={-2000000} currency="€" />
     );
-    expect(wrapper.html()).to.equal('<span style="color:red;">(20 000.00 €)</span>');
+    expect(wrapper.html()).to.equal('<span style="color:red">(20 000.00 €)</span>');
     wrapper = shallow(
       <ReactFormattedAmount amount={-20000000} currency="€" />
     );
-    expect(wrapper.html()).to.equal('<span style="color:red;">(200 000.00 €)</span>');
+    expect(wrapper.html()).to.equal('<span style="color:red">(200 000.00 €)</span>');
     wrapper = shallow(
       <ReactFormattedAmount amount={-200000000} currency="€" />
     );
-    expect(wrapper.html()).to.equal('<span style="color:red;">(2 000 000.00 €)</span>');
+    expect(wrapper.html()).to.equal('<span style="color:red">(2 000 000.00 €)</span>');
   });
 
   it('display 0 amount like positive amounts', () => {
